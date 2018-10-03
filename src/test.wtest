@@ -1,0 +1,89 @@
+import profesionales.* 
+	
+	
+	describe "teste" {
+		
+		const universidadSanMartin = new Universidad()
+		const universidadRosario= new Universidad()
+		const universidadCorrientes = new Universidad()
+		const universidadHurlingham = new Universidad()
+		const juana = new ProfesionalVinculado()
+		const melina = new ProfesionalAsociado()
+		const rocio = new ProfesionalLibre()
+		const luciana = new ProfesionalLibre()
+		const empresa1= new EmpresaDeServicios()
+		
+		
+		fixture {
+		
+		universidadSanMartin.provincia("Buenos Aires")
+		universidadRosario.provincia("Santa Fe")
+		universidadCorrientes.provincia("Corrientes")
+		universidadHurlingham.provincia("Buenos Aires")
+		
+		universidadSanMartin.honorario(3500)
+		universidadRosario.honorario(2800)
+		universidadCorrientes.honorario(4200)
+		universidadHurlingham.honorario(8800)
+		
+		juana.universidad(universidadRosario)
+		melina.universidad(universidadCorrientes)
+		rocio.universidad(universidadHurlingham)
+		luciana.universidad(universidadRosario)
+		
+		rocio.honorariosPorHora(5000)
+		luciana.honorariosPorHora(3200)
+		
+		rocio.provinciasDondePuedeTrabajar(["Santa Fe","Cordoba", "Buenos Aires"])
+		luciana.provinciasDondePuedeTrabajar(["Santa Fe", "Entre Rios"])
+		
+		empresa1.honorarioDeReferencia(3500)
+		empresa1.profesionales([juana, melina, rocio, luciana])		
+		}
+		
+		test "profesionales caros" {
+			
+			
+			assert.equals([rocio], empresa1.profesionalesCaros())
+			
+			
+			
+		}
+		
+		test "universidades formadoras"{
+			
+		assert.equals(#{universidadRosario, universidadCorrientes, universidadHurlingham}, empresa1.universidadesFormadoras())
+			
+			
+			
+	}
+	
+		test "profesional barato"{
+			
+			
+			assert.equals(juana, empresa1.profesionalMasBarato())
+			
+		}
+		
+		test "provincias cubiertas"{
+			
+			
+			assert.equals(true, empresa1.provinciaCubierta("Santa Fe"))
+			
+			
+		}
+		
+		test "provincias"{
+		
+		
+		
+			assert.equals(2, empresa1.cuantosEstudiaronEn(universidadRosario))
+		
+		
+
+		}
+		
+		
+	}
+	
+	
